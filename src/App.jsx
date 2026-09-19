@@ -35,7 +35,7 @@ const INITIAL_GALLERY_IMAGES = [
     title: "Nuestra propuesta de matrimonio",
     location: "Momento inolvidable",
   },
-  {
+  /*{
     id: 2,
     url: foto2,
     title: "Nuestra propuesta de matrimonio",
@@ -52,7 +52,7 @@ const INITIAL_GALLERY_IMAGES = [
     url: foto4,
     title: "Nuestra propuesta de matrimonio",
     location: "",
-  },
+  },*/
 ];
 
 const PARENTS_DATA = {

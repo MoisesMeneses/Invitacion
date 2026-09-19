@@ -128,7 +128,7 @@ const TWO_DAYS_SCHEDULE = [
       {
         time: "18:00 PM",
         title: "Traslado al Salón de Eventos",
-        detail: "Los invitados se dirigirán al Salón COSERP",
+        detail: "Los invitados se dirigirán al Salón COSEP",
       },
     ],
   },

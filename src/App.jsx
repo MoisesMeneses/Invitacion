@@ -18,7 +18,11 @@ import {
   MessageCircle,
 } from "lucide-react";
 import foto1 from "./assets/boda.jpeg";
+import foto2 from "./assets/img2.jpg";
+import foto3 from "./assets/img3.jpg";
+import foto4 from "./assets/img4.jpeg";
 import musicaBoda from "./assets/boda.mp3";
+import { supabase } from "./supabaseClient";
 
 const WEDDING_DATE = new Date("2026-10-10T15:00:00");
 
@@ -29,7 +33,25 @@ const INITIAL_GALLERY_IMAGES = [
     id: 1,
     url: foto1,
     title: "Nuestra propuesta de matrimonio",
-    location: "Atardecer en la playa",
+    location: "Momento inolvidable",
+  },
+  {
+    id: 2,
+    url: foto2,
+    title: "Nuestra propuesta de matrimonio",
+    location: "",
+  },
+  {
+    id: 3,
+    url: foto3,
+    title: "Nuestra propuesta de matrimonio",
+    location: "",
+  },
+  {
+    id: 4,
+    url: foto4,
+    title: "Nuestra propuesta de matrimonio",
+    location: "",
   },
 ];
 
@@ -121,12 +143,12 @@ const TWO_DAYS_SCHEDULE = [
         detail: "Salón de Eventos COSERP (Calle Argote N°346)",
       },
       {
-        time: "17:00 PM",
+        time: "20:00 PM",
         title: "Banquete de Honor",
         detail: "Plato tradicional de fiesta",
       },
       {
-        time: "18:00 PM",
+        time: "22:00 PM",
         title: "Apertura del Baile & Tipaku",
         detail: "Entrega de regalos y fiesta bailable",
       },
@@ -233,10 +255,29 @@ export default function App() {
     }
   };
 
-  const handleRsvpSubmit = (e) => {
+  const handleRsvpSubmit = async (e) => {
     e.preventDefault();
     if (!rsvpData.fullName) return;
-    setRsvpSubmitted(true);
+
+    try {
+      // ⚠️ ASEGÚRATE DE QUE EL NOMBRE DENTRO DE .from() SEA EXACTO
+      const { data, error } = await supabase.from("confirmaciones").insert([
+        {
+          full_name: rsvpData.fullName,
+          attending: rsvpData.attending,
+          message: rsvpData.message,
+        },
+      ]);
+
+      if (error) {
+        console.error("Error de Supabase:", error);
+        alert(`Error de Supabase: ${error.message}`);
+      } else {
+        setRsvpSubmitted(true);
+      }
+    } catch (err) {
+      console.error("Error:", err);
+    }
   };
 
   return (
@@ -364,7 +405,17 @@ export default function App() {
             10
           </span>
           <span className="text-xs md:text-sm uppercase tracking-widest font-sans font-semibold">
-            Octubre 2026
+            y
+          </span>
+          <span className="text-xs md:text-sm uppercase tracking-widest font-sans font-semibold">
+            Domingo
+          </span>
+          <span className="text-2xl md:text-3xl font-serif text-[#D4AF37]">
+            11
+          </span>
+
+          <span className="text-xs md:text-sm uppercase tracking-widest font-sans font-semibold">
+            de Octubre 2026
           </span>
         </div>
 
@@ -526,13 +577,13 @@ export default function App() {
               <div className="space-y-4 font-sans text-sm text-[#5C5247] mb-8">
                 <div className="flex items-center gap-3">
                   <Clock className="w-5 h-5 text-[#D4AF37]" />
-                  <span>Desde las 16:00 HRS p.m. (4:00 PM)</span>
+                  <span>Desde las 17:00 HRS p.m. (5:00 PM)</span>
                 </div>
                 <div className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-[#D4AF37] shrink-0 mt-0.5" />
                   <div>
                     <p className="font-semibold text-[#3A3228]">
-                      Salón de Eventos COSERP
+                      Salón de Eventos COSEP
                     </p>
                     <p className="text-xs text-[#7A6E63]">
                       Calle Argote N°346, Potosí
